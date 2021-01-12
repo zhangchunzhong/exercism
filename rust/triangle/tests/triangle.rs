@@ -140,7 +140,7 @@ fn sum_of_two_sides_must_equal_or_exceed_the_remaining_side_two() {
 }
 
 #[test]
-#[cfg(feature = "generic")]
+
 fn scalene_triangle_with_floating_point_sides() {
     let sides = [0.4, 0.6, 0.3];
     let triangle = Triangle::build(sides).unwrap();
