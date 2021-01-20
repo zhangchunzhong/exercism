@@ -13,13 +13,6 @@ fn check_equation(puzzle: &str, solution: &HashMap<char, u8>) -> bool {
             }
         })
         .collect();
-    let equation: Vec<&str> = pstr.split("==").collect();
-    let left: u64 = equation[0]
-        .split('+')
-        .map(str::trim)
-        .map(|x| x.parse::<u64>().unwrap())
-        .sum();
-    let right: u64 = equation[1].trim().parse::<u64>().unwrap();
     let just_numbers = pstr
         .chars()
         .filter(|c| c.is_digit(10) || c.is_whitespace())
@@ -27,8 +20,18 @@ fn check_equation(puzzle: &str, solution: &HashMap<char, u8>) -> bool {
     let no_leading_zeroes = just_numbers
         .split_whitespace()
         .all(|number| number.chars().next().unwrap() != '0');
+    if no_leading_zeroes == false {
+        return false;
+    }
+    let equation: Vec<&str> = pstr.split("==").collect();
+    let left: u64 = equation[0]
+        .split('+')
+        .map(str::trim)
+        .map(|x| x.parse::<u64>().unwrap())
+        .sum();
+    let right: u64 = equation[1].trim().parse::<u64>().unwrap();
 
-    left == right && no_leading_zeroes
+    left == right
 }
 
 pub fn solve(input: &str) -> Option<HashMap<char, u8>> {
